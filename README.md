@@ -1,3 +1,2 @@
 # mips-assembler-cmpe220
-
-beotch
+Oh fackkkkk
