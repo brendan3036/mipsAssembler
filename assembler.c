@@ -4,9 +4,10 @@
 // MIPS Assembler
 //
 // This is a basic MIPS assembler for a few MIPS instructions.
+#include <stdio.h>
+#define INPUT "assembler.asm"
 
-
-int preprocess_get_line(char label[], char instruction[], FILE* fp);
+int preprocess_get_line(char label[], char instruction[], FILE* INPUT);
 
 int main(int argc, char *argv[])
 {
