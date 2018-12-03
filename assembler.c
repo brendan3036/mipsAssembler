@@ -7,11 +7,10 @@
 #include <stdio.h>
 #define INPUT "assembler.asm"
 
-int preprocess_get_line(char label[], char instruction[], FILE* INPUT);
-
+//int preprocess_get_line(char label[], char instruction[], FILE* INPUT);
+/*
 int main(int argc, char *argv[])
 {
-    /* Open file and check success */
     char *filename = "thisdoesntmatter.asm";
     if (argc >1)                                                        // if we put in an argument
     {
@@ -29,8 +28,8 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-
-int preprocess_get_line(char label[], char instruction[], FILE* fp)
+*/
+/*int preprocess_get_line(char label[], char instruction[], FILE* fp)
 {
     fgets(str,260, fp);
     while(character != EOF)
@@ -40,6 +39,6 @@ int preprocess_get_line(char label[], char instruction[], FILE* fp)
     }
     fclose(inputfile); 
 } 
-
+*/
 
    
