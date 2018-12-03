@@ -7,6 +7,18 @@
 #include <stdio.h>
 #define INPUT "assembler.asm"
 
+int main(void)
+{
+   FILE *in;
+   in = fopen(INPUT, "r");
+   char[10] instructions;
+   for(int a = 0; a < 10; a++){
+     fscanf(in, "%s", &instructions[a]);
+   }
+}
+
+
+
 //int preprocess_get_line(char label[], char instruction[], FILE* INPUT);
 /*
 int main(int argc, char *argv[])
