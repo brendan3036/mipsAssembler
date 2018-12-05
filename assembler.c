@@ -54,6 +54,13 @@ int main(void)
    for(int a = 0; a < 10; a++){
      fscanf(in, "%s", &instructions[a]);
    }
+   
+   /**
+    * We need a loop that runs through each instruction and 
+    * assigns each part of the instruction to a string instructionName,
+    * string register1, string register2, etc
+    */
+
 
    return 0;
 }
