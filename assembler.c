@@ -8,37 +8,46 @@
 
 int preprocess_get_line(char label[], char instruction[], FILE* fp);
 
-int main(int argc, char *argv[])
+struct rInstruction
 {
-    /* Open file and check success */
-    char *filename = "thisdoesntmatter.asm";
-    if (argc >1)                                                        // if we put in an argument
-    {
-        filename = argv[1];                                             // make the filename what we typed it as 
-    }
-    FILE* inputfile = fopen(filename, "r");                             // make a new FILE type called input file, which opens our specified file
-    if(inputfile == NULL)                                               // error if file not found
-    {
-        printf("Unable to open file, sorry\n");
-        return 1;
-    }
-    while (preprocess_get_line(label, instruction, inputfile))          // while we are able to get lines
-    {
-        fprintf("%s: %s", label, instruction);                          // weprint those lines 
-    }
-    return 0;
-}
+   const char *name;                                         // each R instruction has a name
+   char *function;                                           // each R instruction has a purpose
+} = {
+	{"add", "100000"},
+	{"sub", "100010"},
+	{"sll", "000000"},
+	{"slt", "101010"},
+	{"and", "100100"},
+	{"or", "100101"},
+	{NULL, 0}
 
-int preprocess_get_line(char label[], char instruction[], FILE* fp)
+    };
+
+struct iInstruction
 {
-    fgets(str,260, fp);
-    while(character != EOF)
-    {
-        printf("ASCII hex: %2x '%c'\n", (int)character, character);
-        character = fgets(inputfile);
-    }
-    fclose(inputfile); 
-} 
+   const char *name;
+   char *function;
+} = {
+	{"sw", "101011"},
+	{"lw", "100011"},
+	{"addi", "001000"},
+	{NULL, 0}
+
+    };
 
 
-   
+
+struct jInstruction
+{
+   const char *name;
+   char *function;
+} = {
+	{"j", "000010"},
+	{NULL, 0}
+    };
+
+
+int main(int argc, char *argv[]) 
+{
+  return 0;
+}	
