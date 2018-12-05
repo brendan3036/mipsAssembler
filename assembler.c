@@ -4,9 +4,8 @@
 // MIPS Assembler
 //
 // This is a basic MIPS assembler for a few MIPS instructions.
-
-
-int preprocess_get_line(char label[], char instruction[], FILE* fp);
+#include <stdio.h>
+#define INPUT "assembler.asm"
 
 struct rInstruction
 {
@@ -47,7 +46,16 @@ struct jInstruction
     };
 
 
-int main(int argc, char *argv[]) 
+int main(void)
 {
-  return 0;
-}	
+   FILE *in;
+   in = fopen(INPUT, "r");
+   char[10] instructions;
+   for(int a = 0; a < 10; a++){
+     fscanf(in, "%s", &instructions[a]);
+   }
+
+   return 0;
+}
+
+	
