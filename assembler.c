@@ -48,9 +48,10 @@ struct jInstruction
 
 int main(void)
 {
+   const char *instructions[10];
    FILE *in;
    in = fopen(INPUT, "r");
-   char[10] instructions;
+  // char[10] instructions;
    for(int a = 0; a < 10; a++){
      fscanf(in, "%s", &instructions[a]);
    }
