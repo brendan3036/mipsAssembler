@@ -1,3 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BUF 128 /* can change the buffer size as well */
+#define TOT 10 /* change to accomodate other sizes, change ONCE here */
+
+int main(void) {
+    char line[TOT][BUF];
+    FILE *plist = NULL; 
+    int i = 0;
+    int total = 0;
+
+    plist = fopen("plist1.txt", "r");
+    while(fgets(line[i], BUF, plist)) {
+        /* get rid of ending \n from fgets */
+        line[i][strlen(line[i]) - 1] = '\0';
+        i++;
+    }
+
+    total = i;
+
+    for(i = 0; i < total; ++i)
+        printf("%s\n", line[i]);
+
+    return 0;
+}
+
+
+
+Try this:
+
+while (fgets(file[i], sizeof(file[i]), plist))
+    i++;
+Alternatively
+
+while (fgets(line, sizeof(line), plist))
+    strcpy(file[i], line);
+
+
+//reading something from a file
+
+
+
+
 # mips-assembler-cmpe220
 #include <stdio.h>
 #include <string.h>
