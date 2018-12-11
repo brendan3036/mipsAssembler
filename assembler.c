@@ -50,25 +50,17 @@ int main(void)
    FILE *in;
    char line[128];
    in = fopen(INPUT, "r");
-   char instructions[10][10];
+   char instructions[10][30];
    int i = 0;
-/*  
-  while(fgets(line, sizeof line, in) != NULL)
+
+   while(fgets(instructions[i], sizeof(instructions[i]), in))
    {
-     strcpy(instructions[i][10], line);            // should copy each line of instructions into array of instructions
      i++;
-   }	   
-*/
-   while(instructions[i] != EOF){
-   for(int a = 0; a < 10; a++){
-     fscanf(in, "%s", &instructions[a][a]);
    }
    for(int a = 0; a < 10; a++){
      printf("%s",  instructions[a]);
    }
-   i++;
-   }
-   
+  
    /**
     * We need a loop that runs through each instruction and 
     * assigns each part of the instruction to a string instructionName,
