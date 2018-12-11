@@ -53,6 +53,9 @@ int main(void)
    char instructions[10][30];
    int i = 0;
 
+   // runs through asm file and prints them, ideally
+   // we want to do things with them instead of print them
+   /**
    while(fgets(instructions[i], sizeof(instructions[i]), in))
    {
      i++;
@@ -60,6 +63,32 @@ int main(void)
    for(int a = 0; a < 10; a++){
      printf("%s",  instructions[a]);
    }
+   **/
+
+   // this is the one we're messing with 
+   while(fgets(instructions[i], sizeof(instructions[i]), in))
+   {
+     i++;
+   }
+   for(int a = 0; a < 10; a++){
+     char *search = " ";
+    // char *search2 = ", ";
+     char *individualInstruction;
+     char *destination;
+     individualInstruction = strtok(instructions[a], search);
+     destination = strtok(instructions[a], search);
+     printf("%s, %s\n", individualInstruction, destination);
+     
+     
+     /**
+      * if individualInstruction = "add"
+      * then destination = strtok(instructions[a], search
+      */
+   }
+
+
+
+   
   
    /**
     * We need a loop that runs through each instruction and 
