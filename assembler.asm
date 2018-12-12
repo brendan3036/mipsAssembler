@@ -1,10 +1,10 @@
 add $t0 $t1 $t2
-sw $t0 0($s0)
-lw $t3 0($s0)
+add $s2 $t2 $t1
+addi $s1 $t1 15
 addi $t0 $s1 5
-j L1
+sub $s2 $s1 $t2
 sub $t0 $t1 $t3
-sll $s3 $t0 2
+add $s1 $t0 $t1
 slt $s0 $t0 $t1
 and $s2 $t0 $t1
 or $s1 $t0 $t1
