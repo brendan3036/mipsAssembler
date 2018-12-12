@@ -217,7 +217,7 @@ int main(void)
 	     strrev(tempBinary);
 	     printf("binary is %s\n", tempBinary);
 
-
+     }
 
 
  
@@ -442,7 +442,7 @@ int main(void)
    fclose(in);
    return 0;
 }
-}
+
 
 
 
