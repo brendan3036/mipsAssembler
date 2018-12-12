@@ -25,6 +25,20 @@ struct {
     };
 
 struct {
+  const char *name;
+  char *function;
+} registerMap[] = {
+	{"$t0", "01000"},
+	{"$t1", "01001"},
+	{"$t2", "01010"},
+	{"$t3", "01011"},
+	{"$s0", "10000"},
+	{"$s1", "10001"},
+	{"$s2", "10010"},
+	{NULL, 0}
+};
+
+struct {
    const char *name;
    char *function;
 } iInstruction[] = {
