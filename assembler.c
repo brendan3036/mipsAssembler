@@ -8,6 +8,8 @@
 #include <string.h>
 #define INPUT "assembler.asm"
 
+char add[] = "add";
+
 struct {
    const char *name;                                         // each R instruction has a name
    char *function;                                           // each R instruction has a purpose
@@ -73,14 +75,32 @@ int main(void)
    for(int a = 0; a < 10; a++){
      char *search = " ";
     // char *search2 = ", ";
+     char *goingThruInstruction;
      char *individualInstruction;
      char *destination;
+     char *source1;
+     char *source2;
+
+     // this part splits each instruction into the respective parts
      individualInstruction = strtok(instructions[a], search);
-     destination = strtok(instructions[a], search);
-     printf("%s, %s\n", individualInstruction, destination);
+     destination = strtok(NULL, search);
+     source1 = strtok(NULL, search);
+     source2 = strtok(NULL, search); 
+     printf("%s %s %s %s\n",individualInstruction, destination, source1, source2);
      
+     if(strcmp(individualInstruction, add) == 0) {
+	     printf("this is an add instruction\n");
+     }
+    
+    
+    
+     /** while(goingThruInstruction != NULL) {
+	     individualInstruction = goingThruInstruction;
+	     goingThruInstruction = strtok(instructions[a], search);
+	     printf("%s\n", individualInstruction);
+	     
+     }
      
-     /**
       * if individualInstruction = "add"
       * then destination = strtok(instructions[a], search
       */
