@@ -1,9 +1,11 @@
-// Ryan Hippenstiel, Ian Leiby, Brendan Karper
-// CMPE220
-// Dr. Lee
-// MIPS Assembler
-//
-// This is a basic MIPS assembler for a few MIPS instructions.
+/*
+ * Project: MIPS Assembler
+ * Programmer: Ian Leiby, Brendan Karper, Ryan Hippenstiel
+ * Course: CMPE 220
+ * Section: 2 (3-4:50pm)
+ * Instructor: S. Lee
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
