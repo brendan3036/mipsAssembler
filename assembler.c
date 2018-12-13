@@ -8,6 +8,14 @@
 #include <string.h>
 #include <stdlib.h>
 #define INPUT "assembler.asm"
+#define OUTPUT "output.txt"
+
+void append(char* s, char c)
+{
+        int len = strlen(s);
+        s[len] = c;
+        s[len+1] = '\0';
+}
 
 char *strrev(char *str)
 {
@@ -89,34 +97,22 @@ struct {
 
 int main(void)
 {
-  // const char *instructions[10];
    FILE *in;
+   FILE *out;
    char line[128];
    in = fopen(INPUT, "r");
+   out = fopen(OUTPUT, "w");
    char instructions[10][32];
    char hexadecimals[10][32];
    int i = 0;
 
-   // runs through asm file and prints them, ideally
-   // we want to do things with them instead of print them
-   /**
-   while(fgets(instructions[i], sizeof(instructions[i]), in))
-   {
-     i++;
-   }
-   for(int a = 0; a < 10; a++){
-     printf("%s",  instructions[a]);
-   }
-   **/
 
-   // this is the one we're messing with 
    while(fgets(instructions[i], sizeof(instructions[i]), in))
    {
      i++;
    }
    for(int a = 0; a < 10; a++){
      char *search = " ";
-    // char *search2 = ", ";
      char *goingThruInstruction;
      char *individualInstruction;
      char *destination;
@@ -132,7 +128,6 @@ int main(void)
      destination = strtok(NULL, search);
      source1 = strtok(NULL, search);
      source2 = strtok(NULL, search); 
-     printf("%s %s %s %s\n",individualInstruction, destination, source1, source2);
      
      // if individualInstruction is add, then do operations based off that
      if(strcmp(individualInstruction, add) == 0) {
@@ -165,8 +160,6 @@ int main(void)
 	     strcat(binary, registerMap[indexDestination].function);
 	     strcat(binary, "00000");
 	     strcat(binary, rInstruction[indexFunct].function);
-	    // strcat(registerMap[index].function, binary);
-	     printf("%s\n", binary);
 	     int value = (int)strtol(binary, NULL, 2);
 	     char hexString[12];
 	     char zero[] = "0x0";
@@ -174,17 +167,16 @@ int main(void)
 	     if(strlen(hexString) < 8) {
 		     strcat(zero, hexString);
 		     strcpy(hexadecimals[0], zero);
-		     printf("%s\n", hexadecimals[0]);
+		     fprintf(out, "%s\n", hexadecimals[0]);
 				     
 	     } else {
-	      printf("0x%s\n", hexString);
+	      fprintf(out, "0x%s\n", hexString);
 
 	     }
 	     	     
      }
      
      if(strcmp(individualInstruction, addi) == 0) {
-	     printf("this is an addi instruction\n");
              for(int i = 0; i < 7; i++) {
 		  if( strcmp(source1, registerMap[i].name) == 0){
 			indexSource1 = i;
@@ -205,24 +197,33 @@ int main(void)
 	     strcat(binary, registerMap[indexSource1].function);
 	     strcat(binary, registerMap[indexDestination].function);
 	     int immediate = atoi(source2);
-	     int index = 0;
-	     char tempBinary[32];
+	     int index1 = 0;
+	     char tempBinary[16] = "";
 	     while(immediate != 0) {
-		     tempBinary[index] = (immediate % 2) + '0';
+		     tempBinary[index1] = (immediate % 2) + '0';
 		     immediate /= 2;
-		     index++;
+		     index1++;
 
 	     }
-	     tempBinary[index] = '\0';
+	     tempBinary[index1] = '\0';
 	     strrev(tempBinary);
-	     printf("binary is %s\n", tempBinary);
-
+             
+	     int total = strlen(binary) + strlen(tempBinary);
+	     int length = 32 - total;
+	     length -= 7;
+	    
+	     char zeroes[length];
+	     for (int j = 0; j < length; j++) {
+		    // append(zeroes, '0');
+		    zeroes[j] = '0';
+	     }
+	     strcat(binary, zeroes);
+	     strcat(binary, tempBinary);
      }
 
 
  
      if(strcmp(individualInstruction, sub) == 0) {
-	     printf("this is a sub instruction\n");
 
              for(int i = 0; i < 7; i++) {
 		  if( strcmp(source1, registerMap[i].name) == 0){
@@ -252,8 +253,6 @@ int main(void)
 	     strcat(binary, registerMap[indexDestination].function);
 	     strcat(binary, "00000");
 	     strcat(binary, rInstruction[indexFunct].function);
-	    // strcat(registerMap[index].function, binary);
-	     printf("%s\n", binary);
 	     int value = (int)strtol(binary, NULL, 2);
 	     char hexString[12];
 	     char zero[] = "0x0";
@@ -261,17 +260,13 @@ int main(void)
 	     if(strlen(hexString) < 8) {
 		     strcat(zero, hexString);
 		     strcpy(hexadecimals[0], zero);
-		     printf("%s\n", hexadecimals[0]);
+		     fprintf(out, "%s\n", hexadecimals[0]);
 				     
 	     } else {
-	      printf("0x%s\n", hexString);
-
+	      fprintf(out, "0x%s\n", hexString);
 	     }
-
-
 }
      if(strcmp(individualInstruction, slt) == 0) {
-	     printf("this is a slt instruction\n");
              for(int i = 0; i < 7; i++) {
 		  if( strcmp(source1, registerMap[i].name) == 0){
 			indexSource1 = i;
@@ -291,8 +286,6 @@ int main(void)
 	          if (strcmp(individualInstruction, rInstruction[i].name) == 0) {
 		     indexFunct = i;
 		  }
-
-	     
 	     }
              strcat(binary, "000000");
 	     strcat(binary, registerMap[indexSource1].function);
@@ -300,8 +293,6 @@ int main(void)
 	     strcat(binary, registerMap[indexDestination].function);
 	     strcat(binary, "00000");
 	     strcat(binary, rInstruction[indexFunct].function);
-	    // strcat(registerMap[index].function, binary);
-	     printf("%s\n", binary);
 	     int value = (int)strtol(binary, NULL, 2);
 	     char hexString[12];
 	     char zero[] = "0x0";
@@ -309,16 +300,12 @@ int main(void)
 	     if(strlen(hexString) < 8) {
 		     strcat(zero, hexString);
 		     strcpy(hexadecimals[0], zero);
-		     printf("%s\n", hexadecimals[0]);
-				     
+		     fprintf(out, "%s\n", hexadecimals[0]);
 	     } else {
-	      printf("0x%s\n", hexString);
-
-	     }
-
+	      fprintf(out, "0x%s\n", hexString);
+	     }	     
      }
      if(strcmp(individualInstruction, and) == 0) {
-	     printf("this is an and instruction\n");
              for(int i = 0; i < 7; i++) {
 		  if( strcmp(source1, registerMap[i].name) == 0){
 			indexSource1 = i;
@@ -338,8 +325,6 @@ int main(void)
 	          if (strcmp(individualInstruction, rInstruction[i].name) == 0) {
 		     indexFunct = i;
 		  }
-
-	     
 	     }
              strcat(binary, "000000");
 	     strcat(binary, registerMap[indexSource1].function);
@@ -347,8 +332,6 @@ int main(void)
 	     strcat(binary, registerMap[indexDestination].function);
 	     strcat(binary, "00000");
 	     strcat(binary, rInstruction[indexFunct].function);
-	    // strcat(registerMap[index].function, binary);
-	     printf("%s\n", binary);
 	     int value = (int)strtol(binary, NULL, 2);
 	     char hexString[12];
 	     char zero[] = "0x0";
@@ -356,16 +339,13 @@ int main(void)
 	     if(strlen(hexString) < 8) {
 		     strcat(zero, hexString);
 		     strcpy(hexadecimals[0], zero);
-		     printf("%s\n", hexadecimals[0]);
+		     fprintf(out, "%s\n", hexadecimals[0]);
 				     
 	     } else {
-	      printf("0x%s\n", hexString);
-
+	      fprintf(out, "0x%s\n", hexString);
 	     }
-
      }
      if(strcmp(individualInstruction, or) == 0) {
-	     printf("this is an or instruction\n");
              for(int i = 0; i < 7; i++) {
 		  if( strcmp(source1, registerMap[i].name) == 0){
 			indexSource1 = i;
@@ -385,8 +365,6 @@ int main(void)
 	          if (strcmp(individualInstruction, rInstruction[i].name) == 0) {
 		     indexFunct = i;
 		  }
-
-	     
 	     }
              strcat(binary, "000000");
 	     strcat(binary, registerMap[indexSource1].function);
@@ -394,8 +372,6 @@ int main(void)
 	     strcat(binary, registerMap[indexDestination].function);
 	     strcat(binary, "00000");
 	     strcat(binary, rInstruction[indexFunct].function);
-	    // strcat(registerMap[index].function, binary);
-	     printf("%s\n", binary);
 	     int value = (int)strtol(binary, NULL, 2);
 	     char hexString[12];
 	     char zero[] = "0x0";
@@ -403,45 +379,19 @@ int main(void)
 	     if(strlen(hexString) < 8) {
 		     strcat(zero, hexString);
 		     strcpy(hexadecimals[0], zero);
-		     printf("%s\n", hexadecimals[0]);
+		     fprintf(out, "%s\n", hexadecimals[0]);
 				     
 	     } else {
-	      printf("0x%s\n", hexString);
-
+	      fprintf(out, "0x%s\n", hexString);
 	     }
-
      }
-
-
-     
-    
-    
-    
-     /** while(goingThruInstruction != NULL) {
-	     individualInstruction = goingThruInstruction;
-	     goingThruInstruction = strtok(instructions[a], search);
-	     printf("%s\n", individualInstruction);
-	     
-     }
-     
-      * if individualInstruction = "add"
-      * then destination = strtok(instructions[a], search
-      */
-   }
-
-
-
-   
-  
-   /**
-    * We need a loop that runs through each instruction and 
-    * assigns each part of the instruction to a string instructionName,
-    * string register1, string register2, etc
-    */
-
-   fclose(in);
-   return 0;
 }
+       printf("Output hexadecimal values are in file output.txt\n");
+       fclose(in);   
+       fclose(out);
+       return 0;
+}
+
 
 
 
