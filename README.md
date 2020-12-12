@@ -1,7 +1,13 @@
 Project: MIPS Assembler
+
 Programmers: Ian Leiby, Brendan Karper, Ryan Hippenstiel
+
+Semester: Fall 2018
+
 Course: CMPE 220
+
 Section: 2 (3-4:50pm)
+
 Instructor: S. Lee
 
 Description of program:
